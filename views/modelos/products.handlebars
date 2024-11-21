@@ -1,0 +1,17 @@
+<!-- views/products.handlebars -->
+{{!-- Extiende el layout principal --}}
+{{> header }}
+<div class="products-container">
+    <h1>Productos Disponibles</h1>
+    <div class="product-list">
+        {{#each products}}
+            <div class="product-card">
+                <h2>{{this.name}}</h2>
+                <p>{{this.description}}</p>
+                <p><strong>Precio:</strong> ${{this.price}}</p>
+                <button class="add-to-cart" data-id="{{this._id}}">Agregar al carrito</button>
+            </div>
+        {{/each}}
+    </div>
+</div>
+{{> footer }}

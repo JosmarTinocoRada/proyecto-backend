@@ -1,0 +1,69 @@
+<h1>Productos en Tiempo Real</h1>
+<ul id="productList">
+    {{#each products}}
+        <li>
+            {{this.name}} - ${{this.price}} 
+            <button class="deleteButton" data-id="{{this.id}}">Eliminar</button>
+        </li>
+    {{/each}}
+</ul>
+
+<h2>Agregar Producto</h2>
+<form id="productForm">
+    <input type="text" id="title" placeholder="Nombre" required>
+    <input type="text" id="description" placeholder="Descripción" required>
+    <input type="text" id="code" placeholder="Código" required>
+    <input type="number" id="price" placeholder="Precio" required>
+    <input type="number" id="stock" placeholder="Stock" required>
+    <input type="text" id="category" placeholder="Categoría" required>
+    <button type="submit">Agregar Producto</button>
+</form>
+
+<script>
+    const socket = io();
+
+    
+    socket.on('newProduct', (newProduct) => {
+        const productList = document.getElementById('productList');
+        const li = document.createElement('li');
+        li.innerHTML = `${newProduct.name} - $${newProduct.price} 
+                        <button class="deleteButton" data-id="${newProduct.id}">Eliminar</button>`;
+        productList.appendChild(li);
+    });
+
+    
+    socket.on('deleteProduct', (productId) => {
+        const productList = document.getElementById('productList');
+        const itemToDelete = Array.from(productList.children).find(li => li.querySelector('.deleteButton').dataset.id == productId);
+        if (itemToDelete) {
+            productList.removeChild(itemToDelete);
+        }
+    });
+
+    // Manejar el formulario para agregar productos
+    document.getElementById('productForm').addEventListener('submit', (event) => {
+        event.preventDefault();
+
+        const newProduct = {
+            title: document.getElementById('title').value,
+            description: document.getElementById('description').value,
+            code: document.getElementById('code').value,
+            price: parseFloat(document.getElementById('price').value),
+            stock: parseInt(document.getElementById('stock').value),
+            category: document.getElementById('category').value,
+        };
+
+       
+        socket.emit('createProduct', newProduct);
+
+        event.target.reset();
+    });
+
+  
+    document.getElementById('productList').addEventListener('click', (event) => {
+        if (event.target.classList.contains('deleteButton')) {
+            const productId = event.target.dataset.id;
+            socket.emit('deleteProduct', productId);
+        }
+    });
+</script>

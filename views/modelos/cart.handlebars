@@ -1,0 +1,21 @@
+<!-- views/cart.handlebars -->
+{{> header }}
+<div class="cart-container">
+    <h1>Tu Carrito</h1>
+    {{#if cart.items.length}}
+        <div class="cart-items">
+            {{#each cart.items}}
+                <div class="cart-item">
+                    <h3>{{this.product.name}}</h3>
+                    <p>Precio: ${{this.product.price}}</p>
+                    <p>Cantidad: {{this.quantity}}</p>
+                    <button class="remove-from-cart" data-id="{{this.product._id}}">Eliminar</button>
+                </div>
+            {{/each}}
+        </div>
+        <button class="clear-cart">Vaciar Carrito</button>
+    {{else}}
+        <p>Tu carrito está vacío</p>
+    {{/if}}
+</div>
+{{> footer }}
