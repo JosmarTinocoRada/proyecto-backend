@@ -4,7 +4,6 @@ const { Server } = require('socket.io');
 const exphbs = require('express-handlebars');
 const path = require('path');
 const mongoose = require('mongoose'); // Integrar Mongoose
-
 const app = express();
 const PORT = 8080;
 
@@ -36,8 +35,13 @@ app.use(express.static(path.join(__dirname, 'public')));
 const { router: productsRouter, initSocket: initProductSocket } = require('./routes/products');
 const cartsRouter = require('./routes/carts');
 const { router: viewsRouter, initSocket: initViewSocket } = require('./routes/viewsrouter');
+const passport = require('passport');
+require('./utils/passport'); // Configuración de Passport
 
+const userRouter = require('./routes/users.router');
 
+// Configuración de rutas
+app.use('/api/users', userRouter);
 app.use('/api/products', productsRouter);
 app.use('/api/carts', cartsRouter);
 app.use('/api/viewsrouter', viewsRouter);
