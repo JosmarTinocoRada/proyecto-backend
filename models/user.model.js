@@ -21,3 +21,24 @@ userSchema.pre('save', function (next) {
 const User = mongoose.model('User', userSchema);
 
 module.exports = User;
+
+router.post('/admin/login', async (req, res) => {
+  const { email, password } = req.body;
+
+  try {
+    const user = await User.findOne({ email });
+    if (!user || user.role !== 'admin') {
+      return res.status(404).json({ message: 'Admin not found' });
+    }
+
+    const isMatch = bcrypt.compareSync(password, user.password);
+    if (!isMatch) {
+      return res.status(401).json({ message: 'Invalid credentials' });
+    }
+
+    const token = jwt.sign({ id: user._id, role: user.role }, 'yourSecretKey', { expiresIn: '1h' });
+    res.json({ token });
+  } catch (err) {
+    res.status(500).json({ message: 'Error logging in', error: err.message });
+  }
+});

@@ -1,5 +1,6 @@
 const express = require('express');
 const router = express.Router();
+const { isAuthenticated, isAdmin } = require('../utils/authentication');
 const Product = require('../models/Product');  // Importar el modelo de productos
 
 let io;
@@ -126,6 +127,24 @@ document.addEventListener('DOMContentLoaded', () => {
             alert('Producto añadido al carrito');
         });
     });
+
+    // Crear producto (solo admin)
+router.post('/', isAuthenticated, isAdmin, async (req, res) => {
+   
+    res.status(201).json({ message: 'Product created successfully' });
+  });
+  
+  // Actualizar producto (solo admin)
+  router.put('/:id', isAuthenticated, isAdmin, async (req, res) => {
+   
+    res.status(200).json({ message: 'Product updated successfully' });
+  });
+  
+  // Eliminar producto (solo admin)
+  router.delete('/:id', isAuthenticated, isAdmin, async (req, res) => {
+    
+    res.status(200).json({ message: 'Product deleted successfully' });
+  });
 
     document.querySelectorAll('.remove-from-cart').forEach(button => {
         button.addEventListener('click', async () => {

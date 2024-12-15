@@ -1,4 +1,5 @@
 const express = require('express');
+const { isAuthenticated, isUser } = require('../utils/authentication');
 const router = express.Router();
 
 let carts = [];
@@ -51,6 +52,12 @@ router.post('/:cid/product/:pid', (req, res) => {
         res.status(404).json({ error: 'Carrito no encontrado' });
     }
 });
+
+// Agregar producto al carrito (solo usuario)
+router.post('/:cartId/products/:productId', isAuthenticated, isUser, async (req, res) => {
+    
+    res.status(200).json({ message: 'Product added to cart successfully' });
+  });
 
 router.delete('/:cid/products/:pid', async (req, res) => {
     const { cid, pid } = req.params;

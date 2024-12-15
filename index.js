@@ -37,15 +37,49 @@ const cartsRouter = require('./routes/carts');
 const { router: viewsRouter, initSocket: initViewSocket } = require('./routes/viewsrouter');
 const passport = require('passport');
 require('./utils/passport'); // Configuración de Passport
-
 const userRouter = require('./routes/users.router');
+const adminRouter = require('./routes/admin.router')
 
 // Configuración de rutas
+app.use('/api/admin', adminRouter)
 app.use('/api/users', userRouter);
 app.use('/api/products', productsRouter);
 app.use('/api/carts', cartsRouter);
 app.use('/api/viewsrouter', viewsRouter);
 
+// Función para crear un usuario administrador por defecto
+const createAdminUser = async () => {
+    try {
+      const adminEmail = 'admin@example.com';
+      const existingAdmin = await User.findOne({ email: adminEmail });
+  
+      if (!existingAdmin) {
+        const hashedPassword = bcrypt.hashSync('adminPassword', 10);
+        const adminUser = new User({
+          first_name: 'Admin',
+          last_name: 'User',
+          email: adminEmail,
+          age: 30,
+          password: hashedPassword,
+          role: 'admin',
+        });
+        await adminUser.save();
+        console.log('Default admin user created:', adminEmail);
+      } else {
+        console.log('Admin user already exists:', adminEmail);
+      }
+    } catch (error) {
+      console.error('Error creating admin user:', error.message);
+    }
+  };
+  
+  // Llamar a la función después de conectar la base de datos
+  mongoose.connect('mongodb://localhost:27017/yourDatabase', { useNewUrlParser: true, useUnifiedTopology: true })
+    .then(() => {
+      console.log('Database connected');
+      createAdminUser(); // Crear el administrador
+    })
+    .catch(err => console.error('Database connection error:', err));
 
 const server = createServer(app);
 const io = new Server(server);
