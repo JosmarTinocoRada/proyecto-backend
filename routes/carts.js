@@ -1,6 +1,7 @@
 const express = require('express');
 const { isAuthenticated, isUser } = require('../utils/authentication');
 const router = express.Router();
+const PurchaseService = require('../services/purchase.service');
 
 let carts = [];
 
@@ -105,5 +106,22 @@ router.delete('/:cid', async (req, res) => {
     await cart.save();
     res.json(cart);
 });
+
+// Ruta para formalizar una compra
+router.post('/:cartId/purchase', isAuthenticated, async (req, res) => {
+    const { cartId } = req.params;
+    const { email } = req.user; 
+  
+    try {
+      const ticket = await PurchaseService.processPurchase(cartId, email);
+      res.status(200).json({
+        message: 'Purchase completed successfully',
+        ticket,
+      });
+    } catch (error) {
+      res.status(400).json({ message: error.message });
+    }
+  });
+  
 
 module.exports = router;

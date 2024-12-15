@@ -38,7 +38,8 @@ const { router: viewsRouter, initSocket: initViewSocket } = require('./routes/vi
 const passport = require('passport');
 require('./utils/passport'); // Configuración de Passport
 const userRouter = require('./routes/users.router');
-const adminRouter = require('./routes/admin.router')
+const adminRouter = require('./routes/admin.router');
+const currentRouter =require('./routes/current');
 
 // Configuración de rutas
 app.use('/api/admin', adminRouter)
@@ -46,6 +47,7 @@ app.use('/api/users', userRouter);
 app.use('/api/products', productsRouter);
 app.use('/api/carts', cartsRouter);
 app.use('/api/viewsrouter', viewsRouter);
+app.use('/api/current', currentRouter)
 
 // Función para crear un usuario administrador por defecto
 const createAdminUser = async () => {
