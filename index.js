@@ -40,6 +40,7 @@ require('./utils/passport'); // Configuración de Passport
 const userRouter = require('./routes/users.router');
 const adminRouter = require('./routes/admin.router');
 const currentRouter =require('./routes/current');
+const mocksRouter = require('./routes/mocks.router');
 
 // Configuración de rutas
 app.use('/api/admin', adminRouter)
@@ -48,6 +49,7 @@ app.use('/api/products', productsRouter);
 app.use('/api/carts', cartsRouter);
 app.use('/api/viewsrouter', viewsRouter);
 app.use('/api/current', currentRouter)
+app.use('/api/mocks', mocksRouter);
 
 // Función para crear un usuario administrador por defecto
 const createAdminUser = async () => {
