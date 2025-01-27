@@ -5,7 +5,8 @@ const Pet = require('../models/pet');
 
 const router = express.Router();
 
-// Endpoint POST /generateData
+
+
 router.post('/generateData', async (req, res) => {
   const { users, pets } = req.body;
 
@@ -15,11 +16,11 @@ router.post('/generateData', async (req, res) => {
   }
 
   try {
-    // Generar datos simulados
+    
     const mockUsers = await generateMockUsers(users);
     const mockPets = generateMockPets(pets);
 
-    // Insertar en la base de datos
+    
     await User.insertMany(mockUsers);
     await Pet.insertMany(mockPets);
 
