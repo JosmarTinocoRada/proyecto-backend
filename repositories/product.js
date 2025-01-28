@@ -1,4 +1,4 @@
-const Product = require('../models/Product');
+const Product = require('../models/modelproduct');
 
 class ProductRepository {
   async findById(productId) {

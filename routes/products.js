@@ -1,7 +1,7 @@
 const express = require('express');
 const router = express.Router();
 const { isAuthenticated, isAdmin } = require('../utils/authentication');
-const Product = require('../models/Product');  // Importar el modelo de productos
+const Product = require('../models/modelproduct');  // Importar el modelo de productos
 
 let io;
 
