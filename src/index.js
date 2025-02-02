@@ -14,7 +14,7 @@ mongoose.connect(uri, {
     useUnifiedTopology: true
 })
 .then(() => console.log('Conectado a MongoDB Atlas'))
-.catch(err => console.error('Error al conectar a MongoDB Atlas:', err));
+.catch(error => console.error('Error al conectar a MongoDB Atlas:', error));
 
 // Configuración de Handlebars
 app.engine('handlebars', exphbs.engine());
@@ -41,6 +41,7 @@ const userRouter = require('./routes/users.router');
 const adminRouter = require('./routes/admin.router');
 const currentRouter =require('./routes/current');
 const mocksRouter = require('./routes/mocks.router');
+const { error } = require('console');
 
 // Configuración de rutas
 app.use('/api/admin', adminRouter)
