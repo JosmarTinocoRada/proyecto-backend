@@ -1,6 +1,6 @@
 const express = require('express');
-const { isAuthenticated, isAdmin } = require('../utils/authentication');
-const Product = require('../models/Product'); // Modelo de productos
+const { isAuthenticated, isAdmin } = require('../../utils/authentication');
+const Product = require('../../models/modelproduct'); // Modelo de productos
 const router = express.Router();
 
 // Panel de administración: ver productos

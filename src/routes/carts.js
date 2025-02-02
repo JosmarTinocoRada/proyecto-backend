@@ -1,7 +1,7 @@
 const express = require('express');
-const { isAuthenticated, isUser } = require('../utils/authentication');
+const { isAuthenticated, isUser } = require('../../utils/authentication');
 const router = express.Router();
-const PurchaseService = require('../services/purchase.service');
+const PurchaseService = require('../../services/purchase.service');
 
 let carts = [];
 

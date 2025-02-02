@@ -36,7 +36,7 @@ const { router: productsRouter, initSocket: initProductSocket } = require('./rou
 const cartsRouter = require('./routes/carts');
 const { router: viewsRouter, initSocket: initViewSocket } = require('./routes/viewsrouter');
 const passport = require('passport');
-require('./utils/passport'); // Configuración de Passport
+require('../utils/passport'); // Configuración de Passport
 const userRouter = require('./routes/users.router');
 const adminRouter = require('./routes/admin.router');
 const currentRouter =require('./routes/current');

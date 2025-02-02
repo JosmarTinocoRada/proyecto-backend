@@ -1,7 +1,7 @@
 const express = require('express');
 const router = express.Router();
-const Product = require('../views/modelos/cart'); // Asumiendo modelo de productos
-const Cart = require('../views/modelos/products'); // Asumiendo modelo de carrito
+const Product = require('../../views/modelos/product'); // Asumiendo modelo de productos
+const Cart = require('../../views/modelos/cart'); // Asumiendo modelo de carrito
 
 let products = require('./products').products;
 

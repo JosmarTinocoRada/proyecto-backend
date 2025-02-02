@@ -1,4 +1,4 @@
-const Ticket = require('../models/Ticket');
+const Ticket = require('../models/ticketmodel');
 const CartRepository = require('../repositories/cart.repository'); // Si tienes repositorios
 const ProductRepository = require('../repositories/product.repository');
 const UserRepository = require('../repositories/user.repository');
@@ -30,7 +30,7 @@ class PurchaseService {
         purchaser: purchaserEmail,
       });
 
-      // Vaciar el carrito
+     
       await CartRepository.emptyCart(cartId);
 
       return ticket;

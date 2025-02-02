@@ -1,9 +1,9 @@
 const express = require('express');
 const jwt = require('jsonwebtoken');
 const bcrypt = require('bcrypt');
-const User = require('../models/user.model');
+const User = require('../../models/user.model');
 const passport = require('passport');
-require('../utils/passport'); // Importa la configuración de Passport
+require('../../utils/passport'); // Importa la configuración de Passport
 
 const router = express.Router();
 

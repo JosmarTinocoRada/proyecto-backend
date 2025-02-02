@@ -1,7 +1,7 @@
 const express = require('express');
-const { generateMockUsers, generateMockPets } = require('../utils/mocking');
-const User = require('../models/user.model'); 
-const Pet = require('../models/pet'); 
+const { generateMockUsers, generateMockPets } = require('../../utils/mocking');
+const User = require('../../models/user.model'); 
+const Pet = require('../../models/pet'); 
 
 const router = express.Router();
 
@@ -32,6 +32,16 @@ router.post('/generateData', async (req, res) => {
   } catch (error) {
     console.error('Error al generar o insertar datos:', error);
     res.status(500).json({ error: 'Ocurrió un error al generar o insertar los datos.' });
+  }
+});
+// Endpoint GET /mockingusers
+router.get('/mockingusers', async (req, res) => {
+  try {
+    const mockUsers = await generateMockUsers(50); 
+    res.status(200).json(mockUsers);
+  } catch (error) {
+    console.error('Error al generar usuarios de prueba:', error);
+    res.status(500).json({ error: 'Ocurrió un error al generar usuarios de prueba.' });
   }
 });
 
