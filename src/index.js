@@ -27,8 +27,9 @@ app.use((err, req, res, next) => {
     res.status(500).send('Algo salió mal!');
 });
 
-
+// Configuración middlewares
 app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
 app.use(express.static(path.join(__dirname, 'public')));
 
 
